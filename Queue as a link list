@@ -1,0 +1,92 @@
+#include<stdio.h>
+#include<conio.h>
+struct queue
+{
+	int data;
+	struct queue *next;
+}*front,*rear,*tmp;
+struct queue *create()
+{
+int d;
+printf("Enter a Number to be Insert\n");
+scanf("%d",&d);
+tmp=(struct queue*)malloc(sizeof(struct queue));
+tmp->data=d;
+tmp->next=NULL;
+return tmp;
+}
+void ins()
+{
+	tmp=create();
+	if(rear==NULL)
+		front=rear=tmp;
+	else
+	{
+		rear->next=tmp;
+		rear=rear->next;
+	}
+}
+void del()
+{
+	if(front==NULL)
+		printf("Queue is Underflow : \n");
+	else if(front==rear)
+	{
+		printf("Deleted Data = %d\n",front->data);
+		free(rear);
+		free(front);
+	}
+	else
+	{
+		tmp=front;
+		printf("Deleted Data = %d\n",tmp->data);
+		front=front->next;
+		free(tmp);
+	}
+}
+void display()
+{
+	if(front==NULL)
+		printf("Queue is Underflow : \n");
+	else
+	{
+		tmp=front;
+		while(tmp!=NULL)
+		{
+			printf("%d\n",tmp->data);
+			tmp=tmp->next;
+		}
+	}
+}
+void main()
+{
+int ch;
+char ch1;
+do
+{
+	printf("Press 1 for Insert : \n");
+	printf("Press 2 for Delete : \n");
+	printf("Press 3 for Display : \n");
+	printf("Press 4 for Exit : \n");
+	printf("Enter Your Choice : \n");
+	scanf("%d",&ch);
+	switch(ch)
+	{
+	case 1:ins();
+		break;
+	case 2:del();
+		break;
+	case 3:display();
+		break;
+	case 4:exit(0);
+		break;
+	default:printf("Invalid Choice : \n");
+		break;
+	}
+	printf("Do you want to continue\n");
+	fflush(stdin);
+	scanf("%c",&ch1);
+}while(ch1=='y' || ch1=='Y');
+
+getch();
+}
